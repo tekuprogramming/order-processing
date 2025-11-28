@@ -73,7 +73,7 @@ Sends confirmation or rejection messages to the customer.
 Run the script normally:
 
 ```bash
-python your_script_name.py
+python main.py
 ```
 
 The program launches all worker threads and processes orders continuously.
