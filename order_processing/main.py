@@ -46,7 +46,7 @@ def invoice_creator():
 
 def notifier():
     while True:
-        order_id, item, invoice = invoice_queue.get() # unboxes the result of checking the stock
+        order_id, item, invoice = invoice_queue.get() # unboxes the invoice
         if invoice:
             print(f" 📧 Notification for the client: Order {order_id} {item} was confirmed")
         else:
@@ -55,12 +55,13 @@ def notifier():
 
 threads = [
     threading.Thread(target=order_receiver, daemon=True), # thread does order_receiver, daemon=True - the thread ends with the program
-    threading.Thread(target=stock_checker, daemon=True), # thread does order_receiver, daemon=True - the thread ends with the program
-    threading.Thread(target=invoice_creator, daemon=True), # thread does order_receiver, daemon=True - the thread ends with the program
-    threading.Thread(target=notifier, daemon=True) # thread does order_receiver, daemon=True - the thread ends with the program
+    threading.Thread(target=stock_checker, daemon=True), # thread does stock_checker, daemon=True - the thread ends with the program
+    threading.Thread(target=invoice_creator, daemon=True), # thread does invoice_creator, daemon=True - the thread ends with the program
+    threading.Thread(target=notifier, daemon=True) # thread does notifier, daemon=True - the thread ends with the program
 ]
 
 for t in threads:
     t.start()
 
 time.sleep(20)
+
